@@ -23,7 +23,7 @@ model User {
 }
 
 model Account {
-  id          Int    @id @default(autoincrement())
+  id          Int    @id
   user        User   @relation(fields: [userId], references: [id])
   userId      Int
   balance     Decimal @default(0.00)
@@ -31,11 +31,13 @@ model Account {
 }
 
 model Transaction {
-  id            Int       @id @default(autoincrement())
-  account       Account   @relation(fields: [accountId], references: [id])
-  accountId     Int
-  type          String
-  amount        Decimal
-  description   String
-  createdAt     DateTime  @default(now())
+  id                    Int       @id @default(autoincrement())
+  account               Account   @relation(fields: [accountId], references: [id])
+  accountId             Int
+  type                  String
+  amount                Decimal
+  description           String
+  beneficiaryAccNo      Int
+  beneficiaryBankName   String
+  createdAt             DateTime  @default(now())
 }

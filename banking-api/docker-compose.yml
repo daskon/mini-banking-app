@@ -27,7 +27,7 @@ services:
       - "4000:4000"
     depends_on:
       - mysql
-    command: sh -c "npx prisma migrate dev --name init && npm run seed && npm start"
+    command: sh -c "npx prisma migrate deploy && node ./check-seed.js && npm start"
 
 volumes:
   mysql_data:
