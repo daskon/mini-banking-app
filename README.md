@@ -47,6 +47,12 @@ You can view the database at: [http://localhost:8080](http://localhost:8080)
 * **Password:** root
 * **Database:** banking\_db
 
+**Frontend Login Credentials:**
+
+* **username:** user1
+* **password:** password123
+
+Usernames you can try in combination like user1, user4, user7 etc...
 ---
 
 ## Features / Completed Modules
