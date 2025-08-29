@@ -10,10 +10,8 @@ export const authMiddleware = (
     res: Response,
     next: NextFunction
 ) => {
-    const header = req.headers["authorization"];
-    if(!header) return res.status(401).json({ message: "You are not allowed to access!" });
-
-    const token = header.split(" ")[1];
+    const token = req.cookies?.token;
+    if(!token) return res.status(401).json({ message: "You are not allowed to access!" });
 
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { sub: number | any };

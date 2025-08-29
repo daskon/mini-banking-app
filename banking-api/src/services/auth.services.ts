@@ -17,6 +17,12 @@ export class AuthService {
             expiresIn: "5m",
         });
 
-        return { token, userId: user.id };
+        return {
+            token,
+            user:{
+                id: user.id,
+                username: user.username
+            }
+        };
     }
 }
