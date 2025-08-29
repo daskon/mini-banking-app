@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input, message } from "antd"
+import { Alert, Button, Form, Input } from "antd"
 import { useLoginMutation } from "../services/auth/authServiceApi"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -12,7 +12,7 @@ export const Login = () => {
     const onSubmit = async (values: { username: string, password: string}) => {
         try{
             await login(values).unwrap();
-            navigate("/dashboard");
+            window.location.href = "/dashboard";
         } catch (err: any) {
            ErrorHandler.handleApiError(err);
         }
@@ -20,7 +20,7 @@ export const Login = () => {
 
     useEffect(() => {
         if (isSuccess) {
-        navigate("/dashboard");
+          navigate("/dashboard");
         }
     }, [isSuccess]);
 

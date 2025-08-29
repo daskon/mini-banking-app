@@ -8,7 +8,8 @@ export class AccountController {
 
     async getAccounts(req: AuthRequest, res: Response) {
         try{
-            const accounts = await accountServices.getAccounts(req.user!.id);
+            const { id } = req.params;
+            const accounts = await accountServices.getAccounts(Number(id));
             res.json(accounts);
         } catch (err: any) {
             res.status(400).json({ error: err.message });

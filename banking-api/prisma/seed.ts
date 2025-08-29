@@ -43,18 +43,23 @@ async function main() {
   ];
 
   await Promise.all(
-    accounts.map((account, i) =>
-      prisma.transaction.create({
-        data: {
-          accountId: account.id,
-          type: i % 2 === 0 ? 'DEPOSIT' : 'WITHDRAWAL',
-          amount: new Decimal((i + 1) * 50),
-          description: `Transaction ${i + 1}`,
-          beneficiaryAccNo: 10300001 + i,
-          beneficiaryBankName: fakeBanks[i % fakeBanks.length],
-        },
-      })
-    )
+  accounts.map(async (account, i) => {
+    const transactionsCount = 15;
+      return Promise.all(
+        Array.from({ length: transactionsCount }).map((_, j) => {
+          return prisma.transaction.create({
+            data: {
+              accountId: account.id,
+              type: j % 2 === 0 ? 'DEPOSIT' : 'WITHDRAWAL',
+              amount: new Decimal(((i + 1) * 50 + j * 10).toFixed(2)),
+              description: `Transaction ${j + 1} for account ${account.id}`,
+              beneficiaryAccNo: 10300001 + j,
+              beneficiaryBankName: fakeBanks[(i + j) % fakeBanks.length],
+            },
+          });
+        })
+      );
+    })
   );
 
   console.log('Seeded 10 users, 10 accounts, 10 transactions.');

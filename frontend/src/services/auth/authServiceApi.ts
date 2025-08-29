@@ -6,9 +6,8 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  token: string;
   user: {
-    id: string;
+    id: number;
     username: string;
   };
 }
@@ -33,7 +32,13 @@ export const authServiceApi = createApi({
         query: () => "/auth/me"
     }),
 
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useMeQuery } = authServiceApi;
+export const { useLoginMutation, useMeQuery, useLogoutMutation } = authServiceApi;

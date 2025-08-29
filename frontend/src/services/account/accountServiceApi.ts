@@ -1,33 +1,54 @@
-// src/services/account/accountServicesApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Account {
-  id: string;
+  id: number;
   balance: number;
-  type: string;
+  transactions: Transaction[];
 }
 
 export interface Transaction {
-  id: string;
-  date: string;
+  id: number;
+  beneficiaryAccNo: number;
+  beneficiaryBankName: string;
+  createdAt: string;
   amount: number;
-  description: string;
+  type: string;
+}
+
+export interface SendMoneyData {
+  fromAccountId: number;
+  beneficiaryAccNo: number;
+  beneficiaryBankName: string;
+  amount: number;
+  description?: string;
+}
+
+export interface Response {
+  success: boolean;
+  message: string;
 }
 
 export const accountServiceApi = createApi({
   reducerPath: "accountServiceApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000",
-    credentials: "include", 
+    credentials: "include",
   }),
   endpoints: (builder) => ({
-    getAccounts: builder.query<Account[], void>({
-      query: () => "/accounts",
+    getAccounts: builder.query<Account[], number>({
+      query: (id) => `/accounts/${id}`,
     }),
     getTransactions: builder.query<Transaction[], void>({
       query: () => "/transactions",
     }),
+    transferMoney: builder.mutation<Response, SendMoneyData>({
+      query: (data) => ({
+        url: "/accounts/transfer",
+        method: "POST",
+        body: data
+      })
+    }),
   }),
 });
 
-export const { useGetAccountsQuery, useGetTransactionsQuery } = accountServiceApi;
+export const { useGetAccountsQuery, useGetTransactionsQuery, useTransferMoneyMutation } = accountServiceApi;

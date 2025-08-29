@@ -14,7 +14,7 @@ export class AuthService {
         if(!valid) throw new Error("Invalid credtials");
 
         const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET!, {
-            expiresIn: "5m",
+            expiresIn: "1h",
         });
 
         return {
