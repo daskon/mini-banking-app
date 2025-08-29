@@ -30,7 +30,7 @@ export const Login = () => {
                   bg-gradient-to-br from-white/80 via-white/60 to-white/30
                   shadow-lg backdrop-blur-md">
             <h2 className="font-bold text-2xl text-center mb-6">User Login</h2>
-            {isError && <Alert message={(error as any)?.data?.details || "Login failed"} type="error"/>}
+            {isError && <Alert message={(error as any)?.data?.message || "Login failed"} type="error"/>}
             <Form layout="vertical" onFinish={onSubmit}>
                 <Form.Item name="username" label="Username" rules={[{required: true}]}>
                     <Input placeholder="Enter username" />

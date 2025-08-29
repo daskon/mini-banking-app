@@ -20,6 +20,7 @@ export const authServiceApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
+
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
         url: "/auth/login",
@@ -27,7 +28,12 @@ export const authServiceApi = createApi({
         body: credentials,
       }),
     }),
+
+    me: builder.query<LoginResponse, void>({
+        query: () => "/auth/me"
+    }),
+
   }),
 });
 
-export const { useLoginMutation } = authServiceApi;
+export const { useLoginMutation, useMeQuery } = authServiceApi;

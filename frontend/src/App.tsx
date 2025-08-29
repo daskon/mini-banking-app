@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login } from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/layouts/DashboardLayout";
@@ -35,6 +35,14 @@ function App() {
           }
         />
 
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <Navigate to="/" replace />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   )
